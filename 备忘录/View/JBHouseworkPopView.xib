@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="11201" systemVersion="15G31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11161"/>
+        <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" id="iN0-l3-epB" customClass="JBHouseworkPopView">
+            <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Exit-edit" highlightedImage="Exit-edit" translatesAutoresizingMaskIntoConstraints="NO" id="r5Y-Hf-bbB">
+                    <constraints>
+                        <constraint firstAttribute="height" constant="200" id="m6o-DX-pMc"/>
+                        <constraint firstAttribute="width" constant="300" id="zD9-VW-Iod"/>
+                    </constraints>
+                </imageView>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="确定退出此次编辑？" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bNU-KT-qah">
+                    <fontDescription key="fontDescription" type="system" pointSize="20"/>
+                    <nil key="textColor"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="iNx-RE-gmV">
+                    <constraints>
+                        <constraint firstAttribute="width" constant="96" id="c1d-hE-48G"/>
+                        <constraint firstAttribute="height" constant="30" id="h4i-7u-C1A"/>
+                    </constraints>
+                    <fontDescription key="fontDescription" type="system" pointSize="18"/>
+                    <state key="normal" title="确定">
+                        <color key="titleColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                    </state>
+                    <connections>
+                        <action selector="OKAction:" destination="iN0-l3-epB" eventType="touchUpInside" id="YeX-2I-QkF"/>
+                    </connections>
+                </button>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="80B-Ry-0P2">
+                    <constraints>
+                        <constraint firstAttribute="height" constant="30" id="BSy-DU-Yfe"/>
+                        <constraint firstAttribute="width" constant="79" id="IyL-L7-BiD"/>
+                    </constraints>
+                    <fontDescription key="fontDescription" type="system" pointSize="18"/>
+                    <state key="normal" title="取消">
+                        <color key="titleColor" red="0.59999999999999998" green="0.59999999999999998" blue="0.59999999999999998" alpha="1" colorSpace="calibratedRGB"/>
+                    </state>
+                    <connections>
+                        <action selector="cancelAction:" destination="iN0-l3-epB" eventType="touchUpInside" id="tnh-yv-Pqy"/>
+                    </connections>
+                </button>
+            </subviews>
+            <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.5" colorSpace="calibratedRGB"/>
+            <constraints>
+                <constraint firstItem="bNU-KT-qah" firstAttribute="width" secondItem="r5Y-Hf-bbB" secondAttribute="width" constant="-69" id="0DC-GF-a0N"/>
+                <constraint firstItem="r5Y-Hf-bbB" firstAttribute="centerX" secondItem="iN0-l3-epB" secondAttribute="centerX" multiplier="0.93" constant="12.625" id="81S-pZ-zS0"/>
+                <constraint firstItem="r5Y-Hf-bbB" firstAttribute="centerY" secondItem="iN0-l3-epB" secondAttribute="centerY" constant="-57.5" id="Lm2-gd-cda"/>
+                <constraint firstItem="bNU-KT-qah" firstAttribute="centerX" secondItem="iN0-l3-epB" secondAttribute="centerX" constant="16" id="TqC-wc-qyp"/>
+                <constraint firstItem="80B-Ry-0P2" firstAttribute="top" secondItem="bNU-KT-qah" secondAttribute="bottom" constant="48" id="Zff-hz-vC4"/>
+                <constraint firstItem="iNx-RE-gmV" firstAttribute="centerX" secondItem="r5Y-Hf-bbB" secondAttribute="centerX" constant="84" id="aaV-XM-Zfz"/>
+                <constraint firstItem="80B-Ry-0P2" firstAttribute="centerX" secondItem="r5Y-Hf-bbB" secondAttribute="centerX" constant="-59.5" id="e60-KR-dhv"/>
+                <constraint firstItem="bNU-KT-qah" firstAttribute="centerY" secondItem="iN0-l3-epB" secondAttribute="centerY" constant="-57.5" id="ePw-ad-ZDZ"/>
+                <constraint firstItem="iNx-RE-gmV" firstAttribute="top" secondItem="bNU-KT-qah" secondAttribute="bottom" constant="48" id="k2C-tS-rSU"/>
+            </constraints>
+            <connections>
+                <outlet property="bgView" destination="r5Y-Hf-bbB" id="W7l-0J-GGz"/>
+                <outlet property="titleLabel" destination="bNU-KT-qah" id="ms3-Ew-09m"/>
+            </connections>
+            <point key="canvasLocation" x="-96.5" y="-37.5"/>
+        </view>
+    </objects>
+    <resources>
+        <image name="Exit-edit" width="297" height="199"/>
+    </resources>
+</document>
