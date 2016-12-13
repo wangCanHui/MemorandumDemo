@@ -110,12 +110,11 @@
     _isClick = !_isClick;
     if (_isClick) {
         [UIView animateWithDuration:0.05 animations:^{
-            self.originw.transform = CGAffineTransformTranslate(self.originw.transform, CGRectGetMaxX(self.inputView.frame) + -1, 0);
-            //            self.origin.transform = CGAffineTransformTranslate(self.inputView.transform, CGRectGetMaxX(self.origin.frame) - 10, 0);
+            self.originw.x += self.inputView.width + 35;
         }];
     }else{
         [UIView animateWithDuration:0.05 animations:^{
-            self.originw.transform = CGAffineTransformIdentity;
+            self.originw.x -= (self.inputView.width + 35);
         }];
     }
 }
@@ -125,16 +124,20 @@
     [textView sizeThatFits:CGSizeMake([UIScreen mainScreen].bounds.size.width, 10)];
     
     CGRect frame = textView.frame;
-    frame.size.height = size.height;
-    frame.size.width = size.width;
-    
+    frame.size = size;
+
     textView.frame = frame;
     _inputUpView.frame = frame;
     
     CGRect selfFrame = self.frame;
-    selfFrame.size.width = CGRectGetWidth(_originw.frame)+ CGRectGetWidth(_inputView.frame)+40;
-    selfFrame.size.height = _inputView.frame.size.height;
-    self.frame = selfFrame;
+    CGFloat selfWidth = CGRectGetWidth(_originw.frame)+ CGRectGetWidth(_inputView.frame)+40;
+    if (self.isClick) {
+        CGFloat lastSelfWidth  = self.width;
+        selfFrame.origin.x -= (selfWidth-lastSelfWidth);
+        _originw.x += (selfWidth-lastSelfWidth);
+    }
+    selfFrame.size.width = selfWidth;
+    self.frame  = selfFrame;
 }
 
 - (void)textViewDidEndEditing:(UITextView *)textView
