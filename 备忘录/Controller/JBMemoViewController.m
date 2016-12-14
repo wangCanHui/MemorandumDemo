@@ -207,6 +207,12 @@
     return YES;
 }
 
+- (BOOL)textViewShouldBeginEditing:(UITextView *)textView
+{
+    self.isResignActive = NO;
+    return YES;
+}
+
 - (void)textViewDidEndEditing:(UITextView *)textView
 {
     self.tempFirstContent = textView.text;
