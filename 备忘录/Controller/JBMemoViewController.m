@@ -450,7 +450,7 @@
     memo.contents = [self.inputView.attributedText getPlainString];
     memo.imageNames = [self.inputView.attributedText getImageNames];
     self.tempFirstContent = self.tempFirstContent == nil ? @"" : self.tempFirstContent;
-    memo.textContent = [self.tempFirstContent stringByReplacingOccurrencesOfString:@"\n\n" withString:@""];
+    memo.textContent = [self.tempFirstContent stringByReplacingOccurrencesOfString:@"\n\r" withString:@""];
     NSDictionary *dict = [self.inputView.attributedText getImageNumAndVoiceNum];
     memo.picNum = [dict[@"imageNum"] intValue];
     memo.voiceNum = [dict[@"voiceNum"] intValue];
@@ -607,7 +607,7 @@
     // 1. 添加图片显示操作
     NSMutableAttributedString *attri = [[NSMutableAttributedString alloc] initWithAttributedString:self.inputView.attributedText];
     if (self.inputView.text.length > 1 && saveToSandbox) {
-        [attri appendAttributedString:[[NSAttributedString alloc] initWithString:@"\n\n"]];
+        [attri appendAttributedString:[[NSAttributedString alloc] initWithString:@"\n\r"]];
     }
     JBTextAttachment *attch = [[JBTextAttachment alloc] init];
     attch.image = image;
@@ -617,7 +617,7 @@
     }
     NSAttributedString *string = [NSAttributedString attributedStringWithAttachment:attch];
     [attri appendAttributedString:string];
-    [attri appendAttributedString:[[NSAttributedString alloc] initWithString:@"\n\n"]];
+    [attri appendAttributedString:[[NSAttributedString alloc] initWithString:@"\n\r"]];
     self.inputView.attributedText = attri;
     self.inputView.font = [UIFont systemFontOfSize:15];
     if (saveToSandbox) {

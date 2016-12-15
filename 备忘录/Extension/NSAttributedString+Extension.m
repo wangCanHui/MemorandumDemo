@@ -33,7 +33,7 @@
                           base += ((JBTextAttachment *) value).imageName.length+1;
                       }
                   }];
-    return [plainString stringByReplacingOccurrencesOfString:@"\n\n" withString:@""];
+    return [plainString stringByReplacingOccurrencesOfString:@"\n\r" withString:@""];
 }
 
 - (NSString *)getImageNames
