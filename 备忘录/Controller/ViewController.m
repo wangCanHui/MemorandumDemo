@@ -32,6 +32,7 @@
     self.memos = [[JBMemoDAL sharedInstance] selectAllMemos];
     // 注册通知
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(imageViewDidSelectItem:) name:@"imageViewDidSelectItemNotif" object:nil];
+
 }
 
 - (IBAction)newMemo {

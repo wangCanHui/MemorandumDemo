@@ -119,6 +119,11 @@
     self.topToolBarView.hidden = NO;
 }
 
+- (void)viewDidAppear:(BOOL)animated
+{
+    [self.inputView becomeFirstResponder];
+}
+
 #pragma mark - 基本设置
 
 - (void)prepareUI {
@@ -198,6 +203,11 @@
 }
 
 #pragma mark - UITextViewDelegate
+
+- (void)scrollViewDidEndDragging:(UIScrollView *)scrollView willDecelerate:(BOOL)decelerate
+{
+    [self.inputView resignFirstResponder];
+}
 
 -  (BOOL)textView:(UITextView *)textView shouldChangeTextInRange:(NSRange)range replacementText:(NSString *)text
 {
