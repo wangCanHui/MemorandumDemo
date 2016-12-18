@@ -39,7 +39,6 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.title = @"备忘录";
-    self.navigationController.navigationBar.translucent = NO;
     self.view.backgroundColor = [UIColor whiteColor];
     [self setupImageView];
     [self setupSaveBtn];

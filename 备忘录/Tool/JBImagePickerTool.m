@@ -57,19 +57,13 @@
         }
     }
     
+    UIImagePickerController *pickerVC = [[UIImagePickerController alloc] init];
+    pickerVC.delegate = self;
     if (isShowCamera) {
-        UIImagePickerController *pickerVC = [[UIImagePickerController alloc] init];
-        pickerVC.delegate = self;
         pickerVC.sourceType = UIImagePickerControllerSourceTypeCamera;
-        pickerVC.allowsEditing = YES;
-        [self.currentVC presentViewController:pickerVC animated:YES completion:nil];
-        
-    }else if (isShowPhotoLibrary){
-        UIImagePickerController *pickerVC = [[UIImagePickerController alloc] init];
-        pickerVC.delegate = self;
-        pickerVC.allowsEditing = YES;
-        [self.currentVC presentViewController:pickerVC animated:YES completion:nil];
     }
+    pickerVC.allowsEditing = YES;
+    [self.currentVC presentViewController:pickerVC animated:YES completion:nil];
 }
 
 #pragma mark - UIImagePickerControllerDelegate

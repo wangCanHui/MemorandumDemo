@@ -56,6 +56,13 @@ int num1,num2,duration;
         }
         animationView.timer = [NSTimer scheduledTimerWithTimeInterval:1 target:self selector:@selector(timeReduce) userInfo:nil repeats:YES];
         //        [animationView performSelector:@selector(stopTimer) withObject:nil afterDelay:duration];
+    }else{
+        UILabel *timeLabel = [UILabel labelWithText:[NSString stringWithFormat:@"手指上滑，取消发送"] TextColor:[UIColor whiteColor]backgroundColor:nil fontSize:14];
+        timeLabel.size = CGSizeMake(140, 18);
+        timeLabel.textAlignment = NSTextAlignmentCenter;
+        timeLabel.center = CGPointMake(view.centerX, view.centerY);
+        [viewController.view addSubview:timeLabel];
+        animationView.timeLabel = timeLabel;
     }
     //设置动画的图片资源
     imageView.animationImages=images;

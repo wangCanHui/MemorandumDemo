@@ -86,7 +86,6 @@
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:self.saveBtn];
     self.tempContents = [NSMutableArray array];
     [self prepareUI];
-
     ///覆盖语音按钮
     [self buttonitem];
     [self Labelbtn];
@@ -94,10 +93,6 @@
     // 注册通知
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(KeyboardWillChangeFrame:) name:UIKeyboardWillChangeFrameNotification object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(stopAnimate) name:@"stopAnimateNotif" object:nil];
-    // 让设备开启录音模式
-    AVAudioSession *audioSession = [AVAudioSession sharedInstance];
-    [audioSession setCategory:AVAudioSessionCategoryPlayAndRecord error:nil];
-    [audioSession setActive:YES error:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(appWillResignActive) name:UIApplicationWillResignActiveNotification object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(appWillEnterForeground) name:UIApplicationWillEnterForegroundNotification object:nil];
     
@@ -325,7 +320,6 @@
                                 options:0
                              usingBlock:^(id value, NSRange range, BOOL *stop) {
                                  //检查类型是否是自定义NSTextAttachment类
-                                 //检查类型是否是自定义NSTextAttachment类
                                  if (value && [value isKindOfClass:[JBTextAttachment class]]) {
                                      if (range.location == imageRange.location && range.length == imageRange.length) {
                                          fileName = ((JBTextAttachment *) value).imageName;
@@ -481,6 +475,10 @@
         return;
     }
     self.inputView.userInteractionEnabled = NO;
+    // 让设备开启录音模式
+    AVAudioSession *session = [AVAudioSession sharedInstance];
+    [session setCategory:AVAudioSessionCategoryPlayAndRecord error:nil];
+    
     if ([self createRecorder]) {
         if ([self.recorder prepareToRecord]) {
             NSLog(@"开始录音准备成功");
@@ -509,20 +507,23 @@
     [JBAnimationView stopAnimate];
     [self.timer invalidate];
     self.timer = nil;
-    // 延时1秒钟再停止录音，防止最后声音没录上
-    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1.0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+    
+    if (self.recordSeconds < 2) {
         [self.recorder stop];
-        if (self.recordSeconds < 2) {
-            // 在这里添加显示录音时间过短的提示
-            UIImageView *imageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"luyin-duan"]];
-            imageView.center = CGPointMake(self.view.centerX, self.view.centerY-64);
-            [self.view addSubview:imageView];
-            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-                [imageView removeFromSuperview];
-            });
-            // 初始值
-            self.recordSeconds = 1;
-        }else{
+        // 在这里添加显示录音时间过短的提示
+        UIImageView *imageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"luyin-duan"]];
+        imageView.center = CGPointMake(self.view.centerX, self.view.centerY-64);
+        [self.view addSubview:imageView];
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+            [imageView removeFromSuperview];
+        });
+        // 初始值
+        self.recordSeconds = 1;
+
+    }else{
+        // 延时1秒钟再停止录音，防止最后声音没录上
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1.0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+            [self.recorder stop];
             NSString *imageName = @"10s";
             if (self.recordSeconds>10 &&self.recordSeconds<30) {
                 imageName = @"30s";
@@ -574,11 +575,12 @@
                 [self addSelectImage:[UIImage imageNamed:imageName] imageName:fileName saveImageToSandbox:NO];
                 // 初始值
                 self.recordSeconds = 1;
+                // 增大录音音量
                 AVAudioSession *session = [AVAudioSession sharedInstance];
                 [session setCategory:AVAudioSessionCategoryPlayback error:nil];
             }
-        }
-    });
+        });
+    }
 }
 
 // 上传照片
