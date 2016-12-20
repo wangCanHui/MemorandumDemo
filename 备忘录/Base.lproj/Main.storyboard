@@ -37,7 +37,7 @@
                             <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="right" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="RD4-QJ-xD6">
                                 <rect key="frame" x="284" y="11" width="75" height="22"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <state key="normal" image="writegood"/>
+                                <state key="normal" image="writ"/>
                                 <connections>
                                     <action selector="newMemo" destination="n3g-MJ-T3A" eventType="touchUpInside" id="Sss-8b-LLz"/>
                                 </connections>
@@ -74,6 +74,6 @@
         </scene>
     </scenes>
     <resources>
-        <image name="writegood" width="19" height="20"/>
+        <image name="writ" width="19" height="20"/>
     </resources>
 </document>

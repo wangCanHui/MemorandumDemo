@@ -49,7 +49,7 @@
 #pragma mark - 懒加载
 - (UIButton *)backBtn{
     if (!_backBtn) {
-        _backBtn = [UIButton buttonWithTitle:nil titleColor:nil fontSize:17 imageName:@"back-good" bkgimageName:nil target:self action:@selector(backAction)];
+        _backBtn = [UIButton buttonWithTitle:nil titleColor:nil fontSize:17 imageName:@"back" bkgimageName:nil target:self action:@selector(backAction)];
         _backBtn.imageEdgeInsets = UIEdgeInsetsMake(2, -5, 0, 0);
     }
     return _backBtn;

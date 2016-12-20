@@ -8,8 +8,9 @@
 
 #import "JBImagePickerTool.h"
 #import "UIImage+Extension.h"
+#import <MobileCoreServices/MobileCoreServices.h>
 
-@interface JBImagePickerTool ()<UIActionSheetDelegate,UIImagePickerControllerDelegate,UINavigationControllerDelegate>
+@interface JBImagePickerTool ()<UIActionSheetDelegate,UIImagePickerControllerDelegate,UINavigationControllerDelegate,UIVideoEditorControllerDelegate>
 @property (nonatomic,strong) UIViewController *currentVC;
 @property (nonatomic,strong) UIView *view;
 @property (nonatomic,strong) UIActionSheet *actionSheet;
@@ -56,7 +57,7 @@
             isShowPhotoLibrary = YES;
         }
     }
-    
+       
     UIImagePickerController *pickerVC = [[UIImagePickerController alloc] init];
     pickerVC.delegate = self;
     if (isShowCamera) {
@@ -65,6 +66,7 @@
     pickerVC.allowsEditing = YES;
     [self.currentVC presentViewController:pickerVC animated:YES completion:nil];
 }
+
 
 #pragma mark - UIImagePickerControllerDelegate
 - (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary<NSString *,id> *)info

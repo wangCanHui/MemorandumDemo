@@ -74,7 +74,7 @@
 
 - (void)setupAddLabelBtn
 {
-    self.addLabelBtn = [UIButton buttonWithTitle:nil titleColor:nil fontSize:0 imageName:@"Label-Button" bkgimageName:nil target:self action:@selector(addLabel)];
+    self.addLabelBtn = [UIButton buttonWithTitle:nil titleColor:nil fontSize:0 imageName:@"biaoqian" bkgimageName:nil target:self action:@selector(addLabel)];
     self.addLabelBtn.centerX = self.view.centerX;
     self.addLabelBtn.y = self.view.height - self.addLabelBtn.height - 74;
     [self.view addSubview:self.addLabelBtn];
@@ -158,9 +158,7 @@
     [self.view addSubview:self.shadow];
     
     _whiteView = [[UIView alloc]init];
-    //    _whiteView.backgroundColor = [UIColor whiteColor];
     _whiteView.frame  = CGRectMake(10,120, 295, 189);
-    _whiteView.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"Label-box"]];
     //适配plus
     if (JBScreenWidth == 414) {
         _whiteView.origin = CGPointMake(55, JBScreenHeight - 580);
@@ -208,7 +206,7 @@
     _whiteView = [[UIView alloc]init];
     
     _whiteView.frame  = CGRectMake(10,120, 294.5, 189);
-    _whiteView.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"Label-box"]];
+    _whiteView.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"biaoqian"]];
     //适配plus
     if (JBScreenWidth == 414) {
         _whiteView.origin = CGPointMake(55, JBScreenHeight - 580);
@@ -312,9 +310,10 @@
     
     self.lkView = sneder;
     _editorView = [[UIView alloc]initWithFrame:CGRectMake(sneder.frame.origin.x+10, CGRectGetMinY(sneder.frame) - 54, 150, 52)];
-    //    _editorView.layer.cornerRadius = 12;
+    _editorView.layer.cornerRadius = 6;
     _editorView.clipsToBounds = YES;
-    _editorView.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"polygon"]];
+//    _editorView.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"polygon"]];
+    _editorView.backgroundColor = [UIColor blackColor];
     [self.view addSubview:_editorView];
     
     UIButton *editorButton = [[UIButton alloc]init];

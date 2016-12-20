@@ -36,7 +36,7 @@
         UITapGestureRecognizer *originClick = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(originClick)];
         [_originw addGestureRecognizer:originClick];
         [self addSubview:_originw];
-        _originw.image = [UIImage imageNamed:@"Label-flicker"];
+        _originw.image = [UIImage imageNamed:@"2"];
         //跳动
         //        NSMutableArray *volatility = [[NSMutableArray alloc]init];
         //        for (int i = 1 ; i <=3; i ++) {

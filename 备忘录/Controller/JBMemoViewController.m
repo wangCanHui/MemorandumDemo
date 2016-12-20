@@ -477,7 +477,7 @@
     self.inputView.userInteractionEnabled = NO;
     // 让设备开启录音模式
     AVAudioSession *session = [AVAudioSession sharedInstance];
-    [session setCategory:AVAudioSessionCategoryPlayAndRecord error:nil];
+    [session setCategory:AVAudioSessionCategoryRecord error:nil];
     
     if ([self createRecorder]) {
         if ([self.recorder prepareToRecord]) {
@@ -575,9 +575,6 @@
                 [self addSelectImage:[UIImage imageNamed:imageName] imageName:fileName saveImageToSandbox:NO];
                 // 初始值
                 self.recordSeconds = 1;
-                // 增大录音音量
-                AVAudioSession *session = [AVAudioSession sharedInstance];
-                [session setCategory:AVAudioSessionCategoryPlayback error:nil];
             }
         });
     }
@@ -750,6 +747,9 @@
 - (void)playRecordWithFileName:(NSString *)fileName
 {
     [self createPlayerWithFileName:fileName];
+    // 设置播放模式，增大播放音量
+    AVAudioSession *session = [AVAudioSession sharedInstance];
+    [session setCategory:AVAudioSessionCategoryPlayback error:nil];
     //准备播放，做数据的缓存, 做音频相关硬件准备
     if ([self.player prepareToPlay]) {
         NSLog(@"准备播放条件成功!");
@@ -844,7 +844,7 @@
 - (UIButton *)saveBtn
 {
     if (!_saveBtn) {
-        _saveBtn = [UIButton buttonWithTitle:@"" titleColor:[UIColor whiteColor] fontSize:18 imageName:@"savegood" bkgimageName:nil target:self action:@selector(save)];
+        _saveBtn = [UIButton buttonWithTitle:@"" titleColor:[UIColor whiteColor] fontSize:18 imageName:@"baocun" bkgimageName:nil target:self action:@selector(save)];
         _saveBtn.y = 10;
         _saveBtn.imageEdgeInsets = UIEdgeInsetsMake(0, 0, 0, -5);
         _saveBtn.origin = CGPointMake(20, 10);
@@ -857,7 +857,7 @@
 {
     if (!_setupTimeBtn) {
         
-        _setupTimeBtn = [UIButton buttonWithTitle:@"选择计划时间" titleColor:[UIColor lightGrayColor] fontSize:15 imageName:@"clock" bkgimageName:@"time-box2" target:self action:@selector(setupTime)];
+        _setupTimeBtn = [UIButton buttonWithTitle:@"选择计划时间" titleColor:[UIColor lightGrayColor] fontSize:15 imageName:@"clock" bkgimageName:@"box" target:self action:@selector(setupTime)];
         _setupTimeBtn.imageEdgeInsets = UIEdgeInsetsMake(0, -5, 0, 0);
         _setupTimeBtn.frame = CGRectMake(5, 5+64, 143, 30);
         
@@ -889,8 +889,8 @@
     if (!_buttonitem) {
         _buttonitem = [[UIButton alloc]init];
         _buttonitem.frame = CGRectMake(160, 540, 100, 100);
-        [_buttonitem setImage:[UIImage imageNamed:@"voice-unactivated"] forState:UIControlStateNormal];
-        [_buttonitem setImage:[UIImage imageNamed:@"voice-activation"] forState:UIControlStateHighlighted];
+        [_buttonitem setImage:[UIImage imageNamed:@"huiluyin"] forState:UIControlStateNormal];
+        [_buttonitem setImage:[UIImage imageNamed:@"luyin"] forState:UIControlStateHighlighted];
         [_buttonitem addTarget:self action:@selector(startRecord) forControlEvents:UIControlEventTouchDown];
         [_buttonitem addTarget:self action:@selector(stopRecord) forControlEvents:UIControlEventTouchUpInside];
         
@@ -913,8 +913,8 @@
     if (!_Labelbtn) {
         _Labelbtn = [[UIButton alloc]init];
         _Labelbtn.frame = CGRectMake(280, 540, 50, 50);
-        [_Labelbtn setImage:[UIImage imageNamed:@"Label"] forState:UIControlStateNormal];
-        [_Labelbtn setImage:[UIImage imageNamed:@"Label"] forState:UIControlStateSelected];
+        [_Labelbtn setImage:[UIImage imageNamed:@"biaoqian"] forState:UIControlStateNormal];
+        [_Labelbtn setImage:[UIImage imageNamed:@"biaoqian"] forState:UIControlStateSelected];
         [_Labelbtn addTarget:self action:@selector(labelPromptClick) forControlEvents:UIControlEventTouchUpInside];
         
         //适配plus
@@ -935,8 +935,8 @@
     if (!_shotbtn) {
         _shotbtn = [[UIButton alloc]init];
         _shotbtn.frame = CGRectMake(280, 540, 50, 50);
-        [_shotbtn setImage:[UIImage imageNamed:@"camera1"] forState:UIControlStateNormal];
-        [_shotbtn setImage:[UIImage imageNamed:@"camera1"] forState:UIControlStateSelected];
+        [_shotbtn setImage:[UIImage imageNamed:@"paizhao"] forState:UIControlStateNormal];
+        [_shotbtn setImage:[UIImage imageNamed:@"paizhao"] forState:UIControlStateSelected];
         [_shotbtn addTarget:self action:@selector(ShootingClick) forControlEvents:UIControlEventTouchUpInside];
         //适配plus
         if (JBScreenWidth == 414) {
