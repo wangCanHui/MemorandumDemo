@@ -46,11 +46,11 @@
 @property (nonatomic,copy) NSString *tempFirstContent;
 
 //麦克分按钮
-@property (nonatomic,strong) UIButton *buttonitem;
+@property (nonatomic,strong) UIButton *recordBtn;
 //添加标签按钮
 @property (nonatomic,strong) UIButton *Labelbtn;
 // 拍照按钮
-@property (nonatomic,strong) UIButton *shotbtn;
+@property (nonatomic,strong) UIButton *cameraBtn;
 
 @property (nonatomic,strong) UIView *bgView;
 @property (nonatomic,strong) UILabel *textLabel;
@@ -87,9 +87,9 @@
     self.tempContents = [NSMutableArray array];
     [self prepareUI];
     ///覆盖语音按钮
-    [self buttonitem];
+    [self recordBtn];
     [self Labelbtn];
-    [self shotbtn];
+    [self cameraBtn];
     // 注册通知
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(KeyboardWillChangeFrame:) name:UIKeyboardWillChangeFrameNotification object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(stopAnimate) name:@"stopAnimateNotif" object:nil];
@@ -503,10 +503,7 @@
 // 结束录音
 - (void)stopRecord
 {
-    self.inputView.userInteractionEnabled = YES;
-    [JBAnimationView stopAnimate];
-    [self.timer invalidate];
-    self.timer = nil;
+    [self recordDragOutside];
     
     if (self.recordSeconds < 2) {
         [self.recorder stop];
@@ -530,7 +527,7 @@
             }else if (self.recordSeconds > 30){
                 imageName = @"50s";
             }
-            // pcm转mp3
+            // pcm转mp3，为了上传服务器，因为要统一安卓和iOS
             NSString *mp3FilePath = [self.tempFilePathForRecord stringByReplacingOccurrencesOfString:@"pcm" withString:@"mp3"];
             @try {
                 NSUInteger read, write;
@@ -578,6 +575,15 @@
             }
         });
     }
+}
+
+// 手指上滑取消录音
+- (void)recordDragOutside
+{
+    self.inputView.userInteractionEnabled = YES;
+    [JBAnimationView stopAnimate];
+    [self.timer invalidate];
+    self.timer = nil;
 }
 
 // 上传照片
@@ -884,27 +890,27 @@
 }
 
 
--(UIButton *)buttonitem {
+-(UIButton *)recordBtn {
     
-    if (!_buttonitem) {
-        _buttonitem = [[UIButton alloc]init];
-        _buttonitem.frame = CGRectMake(160, 540, 100, 100);
-        [_buttonitem setImage:[UIImage imageNamed:@"huiluyin"] forState:UIControlStateNormal];
-        [_buttonitem setImage:[UIImage imageNamed:@"luyin"] forState:UIControlStateHighlighted];
-        [_buttonitem addTarget:self action:@selector(startRecord) forControlEvents:UIControlEventTouchDown];
-        [_buttonitem addTarget:self action:@selector(stopRecord) forControlEvents:UIControlEventTouchUpInside];
-        
+    if (!_recordBtn) {
+        _recordBtn = [[UIButton alloc]init];
+        _recordBtn.frame = CGRectMake(160, 540, 100, 100);
+        [_recordBtn setImage:[UIImage imageNamed:@"huiluyin"] forState:UIControlStateNormal];
+        [_recordBtn setImage:[UIImage imageNamed:@"luyin"] forState:UIControlStateHighlighted];
+        [_recordBtn addTarget:self action:@selector(startRecord) forControlEvents:UIControlEventTouchDown];
+        [_recordBtn addTarget:self action:@selector(stopRecord) forControlEvents:UIControlEventTouchUpInside];
+        [_recordBtn addTarget:self action:@selector(recordDragOutside) forControlEvents:UIControlEventTouchDragExit];
         //适配plus
         if (JBScreenWidth == 414) {
-            _buttonitem.origin = CGPointMake(155, JBScreenHeight - 150);
+            _recordBtn.origin = CGPointMake(155, JBScreenHeight - 150);
         }else if(JBScreenWidth == 320 ) {
-            _buttonitem.origin = CGPointMake(135, JBScreenHeight - 125);
+            _recordBtn.origin = CGPointMake(135, JBScreenHeight - 125);
         }else {
-            _buttonitem.origin = CGPointMake(135, JBScreenHeight - 150);
+            _recordBtn.origin = CGPointMake(135, JBScreenHeight - 150);
         }
-        [self.view addSubview:_buttonitem];
+        [self.view addSubview:_recordBtn];
     }
-    return _buttonitem;
+    return _recordBtn;
     
 }
 
@@ -930,25 +936,25 @@
     return _Labelbtn;
 }
 
--(UIButton *)shotbtn {
+-(UIButton *)cameraBtn {
     
-    if (!_shotbtn) {
-        _shotbtn = [[UIButton alloc]init];
-        _shotbtn.frame = CGRectMake(280, 540, 50, 50);
-        [_shotbtn setImage:[UIImage imageNamed:@"paizhao"] forState:UIControlStateNormal];
-        [_shotbtn setImage:[UIImage imageNamed:@"paizhao"] forState:UIControlStateSelected];
-        [_shotbtn addTarget:self action:@selector(ShootingClick) forControlEvents:UIControlEventTouchUpInside];
+    if (!_cameraBtn) {
+        _cameraBtn = [[UIButton alloc]init];
+        _cameraBtn.frame = CGRectMake(280, 540, 50, 50);
+        [_cameraBtn setImage:[UIImage imageNamed:@"paizhao"] forState:UIControlStateNormal];
+        [_cameraBtn setImage:[UIImage imageNamed:@"paizhao"] forState:UIControlStateSelected];
+        [_cameraBtn addTarget:self action:@selector(ShootingClick) forControlEvents:UIControlEventTouchUpInside];
         //适配plus
         if (JBScreenWidth == 414) {
-            _shotbtn.origin = CGPointMake(38, JBScreenHeight - 115);
+            _cameraBtn.origin = CGPointMake(38, JBScreenHeight - 115);
         }else if(JBScreenWidth == 320 ) {
-            _shotbtn.origin = CGPointMake(28, JBScreenHeight - 115);
+            _cameraBtn.origin = CGPointMake(28, JBScreenHeight - 115);
         }else {
-            _shotbtn.origin = CGPointMake(38, JBScreenHeight - 115);
+            _cameraBtn.origin = CGPointMake(38, JBScreenHeight - 115);
         }
-        [self.view addSubview:_shotbtn];
+        [self.view addSubview:_cameraBtn];
     }
-    return _shotbtn;
+    return _cameraBtn;
     
 }
 

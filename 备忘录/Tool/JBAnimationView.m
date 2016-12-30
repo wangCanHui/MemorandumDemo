@@ -11,16 +11,17 @@
 @interface JBAnimationView ()
 @property (nonatomic,strong) NSTimer *timer;
 @property (nonatomic,weak) UILabel *timeLabel;
+@property (nonatomic,strong) UIImageView *imageView;
 @end
+
 JBAnimationView *animationView;
-UIImageView *imageView;
 int num1,num2,duration;
+
 @implementation JBAnimationView
 
 + (void)animateWithImages:(NSArray *)images duration:(int)duration1 inViewController:(UIViewController *)viewController showTime:(BOOL)isShowTime
 {
     // 0.计算时间初始值
-    //    duration1 = 6;
     duration = duration1;
     // 1. 初始化animationView
     animationView = [[JBAnimationView alloc] init];
@@ -36,9 +37,9 @@ int num1,num2,duration;
     UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(stopAnimate)];
     [animationView addGestureRecognizer:tap];
     // 2. 初始化imageView
-    imageView = [[UIImageView alloc] initWithImage:images.firstObject];
-    imageView.center = CGPointMake(view.centerX, view.centerY-64);
-    [viewController.view addSubview:imageView];
+    animationView.imageView = [[UIImageView alloc] initWithImage:images.firstObject];
+    animationView.imageView.center = CGPointMake(view.centerX, view.centerY-64);
+    [viewController.view addSubview:animationView.imageView];
     
     // 3. 初始化timeLabel
     if (isShowTime) {
@@ -55,7 +56,6 @@ int num1,num2,duration;
             [self stopTimer];
         }
         animationView.timer = [NSTimer scheduledTimerWithTimeInterval:1 target:self selector:@selector(timeReduce) userInfo:nil repeats:YES];
-        //        [animationView performSelector:@selector(stopTimer) withObject:nil afterDelay:duration];
     }else{
         UILabel *timeLabel = [UILabel labelWithText:[NSString stringWithFormat:@"手指上滑，取消发送"] TextColor:[UIColor whiteColor]backgroundColor:nil fontSize:14];
         timeLabel.size = CGSizeMake(140, 18);
@@ -65,22 +65,16 @@ int num1,num2,duration;
         animationView.timeLabel = timeLabel;
     }
     //设置动画的图片资源
-    imageView.animationImages=images;
+    animationView.imageView.animationImages=images;
     
     //设置动画的执行时间，即执行快慢
     NSTimeInterval animationDuration = 0.333333*images.count;
-    imageView.animationDuration=animationDuration;
+    animationView.imageView.animationDuration=animationDuration;
     
     //设置动画的执行次数
-    //    imageView.animationRepeatCount=duration/animationDuration;
-    imageView.animationRepeatCount=duration;
+    animationView.imageView.animationRepeatCount=duration;
     //必须所有动画效果设置完毕之后，开启动画
-    [imageView startAnimating];
-    
-    //在自身动画执行完毕的时候，直接self.imgView.animationImages=nil;释放掉本次动画的资源
-    //    [imageView performSelector:@selector(setAnimationImages:) withObject:nil afterDelay:duration];
-    //    [imageView performSelector:@selector(removeFromSuperview) withObject:nil afterDelay:duration];
-    //    [animationView performSelector:@selector(removeFromSuperview) withObject:nil afterDelay:duration];
+    [animationView.imageView startAnimating];
 }
 
 + (void)stopAnimate
@@ -88,8 +82,8 @@ int num1,num2,duration;
     [[NSNotificationCenter defaultCenter] postNotificationName:@"stopAnimateNotif" object:nil];
     [self stopTimer];
     //在自身动画执行完毕的时候，直接self.imgView.animationImages=nil;释放掉本次动画的资源
-    [imageView performSelector:@selector(setAnimationImages:) withObject:nil];
-    [imageView removeFromSuperview];
+    [animationView.imageView performSelector:@selector(setAnimationImages:) withObject:nil];
+    [animationView.imageView removeFromSuperview];
     [animationView.timeLabel removeFromSuperview];
     [animationView removeFromSuperview];
 }
