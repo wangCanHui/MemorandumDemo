@@ -474,6 +474,11 @@
         [self.view endEditing:YES];
         return;
     }
+    // 如果正在播放其他语音则停止播放
+    if ([JBAnimationView isAnimating]){
+        [JBAnimationView stopAnimate];
+        [self.player stop];
+    }
     self.inputView.userInteractionEnabled = NO;
     // 让设备开启录音模式
     AVAudioSession *session = [AVAudioSession sharedInstance];
@@ -587,7 +592,7 @@
 }
 
 // 上传照片
--(void)ShootingClick{
+-(void)pickerImage{
     
     [self.view endEditing:YES];
     
@@ -943,7 +948,7 @@
         _cameraBtn.frame = CGRectMake(280, 540, 50, 50);
         [_cameraBtn setImage:[UIImage imageNamed:@"paizhao"] forState:UIControlStateNormal];
         [_cameraBtn setImage:[UIImage imageNamed:@"paizhao"] forState:UIControlStateSelected];
-        [_cameraBtn addTarget:self action:@selector(ShootingClick) forControlEvents:UIControlEventTouchUpInside];
+        [_cameraBtn addTarget:self action:@selector(pickerImage) forControlEvents:UIControlEventTouchUpInside];
         //适配plus
         if (JBScreenWidth == 414) {
             _cameraBtn.origin = CGPointMake(38, JBScreenHeight - 115);

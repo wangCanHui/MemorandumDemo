@@ -11,4 +11,5 @@
 @interface JBAnimationView : UIView
 + (void)animateWithImages:(NSArray *)images duration:(int)duration inViewController:(UIViewController *)viewController showTime:(BOOL)isShowTime;
 + (void)stopAnimate;
++ (BOOL)isAnimating;
 @end

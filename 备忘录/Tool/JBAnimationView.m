@@ -103,4 +103,9 @@ int num1,num2,duration;
     [animationView.timer invalidate];
     animationView.timer =  nil;
 }
+
++ (BOOL)isAnimating
+{
+    return duration;
+}
 @end
