@@ -86,6 +86,7 @@ int num1,num2,duration;
     [animationView.imageView removeFromSuperview];
     [animationView.timeLabel removeFromSuperview];
     [animationView removeFromSuperview];
+    animationView = nil;
 }
 
 + (void)timeReduce
